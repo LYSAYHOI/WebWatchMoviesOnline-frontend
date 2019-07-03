@@ -1,0 +1,41 @@
+<div class="player-sidebar-body body-comment" [ngClass]="{hidden: this._PlayerSidebarServiceService.toggle === true}">
+    <div class="comment-input">
+        <input type="text" name="comment-input" [(ngModel)]="commentContent" id="comment-input" (keyup.enter)="addComment()">
+        <span id="comment-emoticon" class="comment-emoticon icon-smile"></span>
+        <div id="emoji-picker" class="emoji-picker hidden">
+            <div class="emoji-picker-header">
+                <div class="emoji-picker-type" data-tab="panda"><img
+                        src=""></div>
+                <div class="emoji-picker-type" data-tab="onion"><img
+                        src=""></div>
+                <div class="emoji-close"><i class="icon-close"></i></div>
+            </div>
+            <div class="emoji-picker-body">
+                <ul class="emoji-list emoji-panda" data-tab="panda"></ul>
+                <ul class="emoji-list emoji-onion hidden" data-tab="onion"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="comment-list ps-container ps-theme-default" data-ps-id="75d92230-8964-d45e-3ca9-19b7f200463e">
+        <input type="button" class="comment-more hidden" value="Xem thêm">
+        <input type="text" name="reply-input" id="reply-input" class="reply-input hidden">
+        <!-- <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+        <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+    </div>
+    <div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;">
+        <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+    </div> -->
+        <div class="comment-item" *ngFor="let comment of listComment">
+            <!-- <div class="author-avatar"><img src="https://i.imacdn.com/vg/default-avatar-3.png"></div> -->
+            <div class="comment-item-body">
+                <div class="author-name">{{comment.user.userName}}</div>
+                <div class="comment-content">{{comment.commentContent}}</div>
+                <div class="comment-action">
+                    <span class="comment-time"><i class="icon icon-time"></i>{{comment.commentTime | date: 'short'}}</span></div>
+                <div class="reply-list hidden"></div>
+            </div>
+        </div>
+        <button mat-button type="button" class="comment-more" (click)="readMoreComment()">Xem thêm</button>
+    </div>
+    <div class="loading hidden"></div>
+</div>

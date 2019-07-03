@@ -1,0 +1,30 @@
+<section class="tray movie">
+    <div class="tray-title">
+        <a href="" target="_blank">Phim Mới <i class="icon icon-right"></i></a>
+    </div>
+    <div class="tray-content index">
+        <div class="tray-item" *ngFor="let film of listNewFilm">
+            <a [routerLink]="['/phim', film.filmId, film.filmName | slug, 'tap-'+1]">
+                <img class="tray-item-thumbnail" src={{film.image}} data-src="" alt={{film.filmName}}>
+                <div class="tray-item-description">
+                    <div class="tray-item-title">{{film.filmName}}</div>
+                    <div class="tray-item-meta-info">
+                        <div class="tray-film-views">{{film.viewed | numberWithCommas}} lượt xem</div>
+                        <div class="tray-film-likes"> {{film.liked | numberWithCommas}} thích</div>
+                    </div>
+                </div>
+                <div class="tray-film-update">
+                    <span *ngFor="let agenre of film.genre; let last = last;">{{agenre.genreName}} 
+                        <p *ngIf="!last" style="display: inline;">,&nbsp;</p>
+                    </span>
+                </div>
+                <!-- <div class="tray-film-update">
+                    7 / 8 tập
+                </div> -->
+                <div class="tray-item-play-button">
+                    <i class="icon-play"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,193 @@
+<div class="navbar-right" [ngClass]="{ activated: this._UserLogingTabService.status === true }">
+    <ng-container *ngIf="this.authServiceService.isAuthenticated() === false; else active">
+        <div class="navbar-user navbar-user-header">
+            <div class="user-avatar big-avatar">
+                <i class="icon-person"></i>
+            </div>
+            <div class="navbar-user-welcome">
+                <span>Chào khách!</span>
+            </div>
+            <div class="navbar-user-tab">
+                <div class="navbar-user-tab-item navbar-tab-login" [ngClass]="{ activated: this.tabLogin === true }" (click)="onActivateTabLogin(true)" data-tab="login">
+                    Đăng nhập
+                </div>
+                <div class="navbar-user-tab-item navbar-tab-signup" [ngClass]="{ activated: this.tabLogin === false }" (click)="onActivateTabLogin(false)" data-tab="signup">
+                    Đăng ký
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar-user-body tab-login ps-container ps-theme-default" [ngClass]="{ hidden: this.tabLogin === false }" style="max-height: 494px;">
+            <div class="navbar-form-group" [ngClass]="{ warning: isvalidUser === false }">
+                <label>Tên đăng nhập</label>
+                <input type="text" name="username" [(ngModel)]="userName" required minlength="6" (ngModelChange)="onInputUserChange($event)" (keyup.enter)="onSubmit(userName, passWord)" />
+                <i class="icon icon-person"></i>
+                <span class="tip">từ 6 - 20 kí tự</span>
+            </div>
+            <div class="navbar-form-group" [ngClass]="{ warning: isvalidPassword === false }">
+                <label>Mật khẩu</label>
+                <input type="password" name="password" required [(ngModel)]="passWord" required minlength="8" (ngModelChange)="onInputPasswordChange($event)" (keyup.enter)="onSubmit(userName, passWord)" />
+                <i class="icon icon-lock"></i>
+                <span class="tip">từ 6 - 30 kí tự</span>
+            </div>
+            <div class="navbar-form-group">
+                <label class="navbar-form-checkbox">
+                    <!-- <input type="checkbox" name="remember" checked=""> -->
+                    <!-- <span>Ghi nhớ</span> -->
+                </label>
+                <!-- <a [routerLink]="['/quen-mat-khau']" class="forgot-password">Quên mật khẩu</a> -->
+            </div>
+            <ng-container *ngIf="isError === true; else error">
+                <div class="navbar-form-group">
+                    <ul id="form-login-warning">Thông tin đăng nhập không chính xác</ul>
+                </div>
+            </ng-container>
+            <ng-template #error>
+                <div class="navbar-form-group hidden">
+                    <ul id="form-login-warning">Thông tin đăng nhập không chính xác</ul>
+                </div>
+            </ng-template>
+            <div class="navbar-form-group submit">
+                <input class="vuighe" id="login" type="button" name="submit" value="Đăng nhập" (click)="onSubmit(userName, passWord)" (keyup.enter)="onSubmit(userName, passWord)">
+            </div>
+            <hr>
+        </div>
+
+        <div class="navbar-user-body tab-signup ps-container ps-theme-default" [ngClass]="{ hidden: this.tabLogin === true }" style="max-height: 494px;">
+            <div class="navbar-form-group" [ngClass]="{ warning: isvalidSingupUsername === false }">
+                <label>Tên đăng nhập</label>
+                <input type="text" name="username" required [(ngModel)]="userNameSignUp" (ngModelChange)="onUserNameSignUpChange($event)" />
+                <i class="icon icon-person"></i>
+                <span class="tip">6 - 20 kí tự, 0 kí tự đặc biệt</span>
+            </div>
+            <div class="navbar-form-group" [ngClass]="{ warning: isvalidSingupPassword === false }">
+                <label>Mật khẩu</label>
+                <input type="password" name="password" required [(ngModel)]="passWordSignUp" (ngModelChange)="onPassWordSignUpChange($event)" />
+                <i class="icon icon-lock"></i>
+                <span class="tip">6 - 30 kí tự, 1 kí tự số - in hoa - in thường</span>
+            </div>
+            <div class="navbar-form-group" [ngClass]="{ warning: isvalidCheckpassWordSignUp === false }">
+                <label>Nhập lại mật khẩu</label>
+                <input type="password" name="password_confirm" required [(ngModel)]="checkpassWordSignUp" (ngModelChange)="onCheckpassWordSignUpChange($event)" />
+                <i class="icon icon-lock"></i>
+                <span class="tip">mật khẩu không trùng khớp</span>
+            </div>
+            <div class="navbar-form-group" [ngClass]="{ warning: isvalidNameSignUp === false }">
+                <label>Tên hiển thị</label>
+                <input type="text" name="full_name" required [(ngModel)]="nameSignUp" (ngModelChange)="onNameSignUpChange($event)" />
+                <i class="icon icon-comment"></i>
+                <span class="tip">từ 8 - 40 kí tự</span>
+            </div>
+            <div class="navbar-form-group" [ngClass]="{ warning: isvalidSingupEmail === false }">
+                <label>Email</label>
+                <input type="text" name="email" required [(ngModel)]="emailSignUp" (ngModelChange)="onEmailSignUpChange($event)" />
+                <i class="icon icon-email"></i>
+                <span class="tip">email không hợp lệ</span>
+            </div>
+            <div class="navbar-form-group">
+                <label>Giới tính</label>
+                <label class="navbar-form-radio">
+                    <input type="radio" name="gender" value="1" checked="" (click)="getActive($event)">
+                    <span>Nam</span>
+                </label>
+                <label class="navbar-form-radio">
+                    <input type="radio" name="gender" value="0" (click)="getActive($event)">
+                    <span>Nữ</span>
+                </label>
+            </div>
+            <div class="navbar-form-group birthday" [ngClass]="{ warning: isvalidonBirthChange === false }">
+                <div class="navbar-form-select day">
+                    <label>Ngày sinh</label>
+                    <input type="number" name="birthday" min="1" max="31" [(ngModel)]="dobSignUp" (ngModelChange)="onBirthChange($event)" />
+                </div>
+                <div class="navbar-form-select month">
+                    <label>Tháng sinh</label>
+                    <input type="number" name="birthmonth" min="1" max="12" [(ngModel)]="mobSignUp" (ngModelChange)="onBirthChange($event)" />
+                </div>
+                <div class="navbar-form-select year">
+                    <label>Năm sinh</label>
+                    <input type="number" name="birthyear" min="1970" [max]="this.maxyear" [(ngModel)]="yobSignUp" (ngModelChange)="onBirthChange($event)" />
+                </div>
+                <span class="tip">Ngày tháng năm sinh không hợp lệ</span>
+            </div>
+            <ng-container *ngIf="errorSignup === true; else errorsingup">
+                <div class="navbar-form-group">
+                    <ul id="form-signup-warning">Tên đăng nhập đã tồn tại trong hệ thống</ul>
+                </div>
+            </ng-container>
+            <ng-template *ngIf="errorSignup === true">
+                <div class="navbar-form-group hidden">
+                    <ul id="form-signup-warning">Tên đăng nhập đã tồn tại trong hệ thống</ul>
+                </div>
+            </ng-template>
+            <!-- <ng-container *ngIf="errorSignup === true">
+                <div class="navbar-form-group">
+                    <ul id="form-signup-warning">Thông tin đăng ký không hợp lệ</ul>
+                </div>
+            </ng-container> -->
+            <div class="navbar-form-group submit">
+                <input class="vuighe" id="signup" type="button" name="submit" value="Đăng ký" (click)="onSignupSubmit()">
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #active>
+        <div class="navbar-user navbar-user-header">
+            <div class="user-avatar big-avatar">
+                <img src="https://lh3.googleusercontent.com/-EencxfmC-J4/AAAAAAAAAAI/AAAAAAAADi4/feYl1axzTGw/photo.jpg?sz=130" />
+                <div class="user-avatar-update"><i class="icon-images"></i></div>
+                <input class="user-avatar-file" id="avatar-upload" type="file" name="avatar_file" accept="image/*">
+            </div>
+            <div class="navbar-user-welcome">
+                <span>Chào Tuấn Anh Phạm!</span>
+            </div>
+            <div class="navbar-user-tab">
+                <div class="navbar-user-tab-item navbar-tab-information activated" data-tab="information">Thông tin</div>
+                <div class="navbar-user-tab-item navbar-tab-notification" data-tab="notification">Thông báo</div>
+            </div>
+        </div>
+        <div class="navbar-user-body tab-information">
+            <div class="navbar-user-content">
+                <div class="user-item">
+                    <a [routerLink]="['/sua-thong-tin']">
+                        <i class="icon icon-edit"></i> Sửa thông tin
+                    </a>
+                </div>
+                <div class="user-item">
+                    <a [routerLink]="['/doi-mat-khau']">
+                        <i class="icon icon-unlock"></i> Đổi mật khẩu
+                    </a>
+                </div>
+                <hr>
+                <div class="user-item">
+                    <a [routerLink]="['/phim-da-xem']">
+                        <i class="icon icon-film"></i> Phim đã xem
+                    </a>
+                </div>
+                <div class="user-item">
+                    <a [routerLink]="['/phim-da-thich']">
+                        <i class="icon icon-heart"></i> Phim đã thích
+                    </a>
+                </div>
+                <!-- <div class="user-item">
+                    <a [routerLink]="['/phim-dang-theo-doi']">
+                        <i class="icon icon-notifications"></i> Phim đang theo dõi
+                    </a>
+                </div> -->
+                <hr>
+                <div class="logout user-item" id="logout" (click)="onLogout()">
+                    <i class="icon icon-power"></i> Đăng xuất
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar-user-body tab-notification">
+            <div class="notification-list"></div>
+            <div class="notification-none hidden"></div>
+            <div class="notification-more hidden">xem thêm</div>
+        </div>
+    </ng-template>
+    <div class="loading hidden"></div>
+    <div class="navbar-close" (click)="OnClose()">
+        <i class="icon-close"></i>
+    </div>
+</div>

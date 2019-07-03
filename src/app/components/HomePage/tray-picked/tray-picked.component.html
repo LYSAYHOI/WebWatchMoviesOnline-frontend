@@ -1,0 +1,30 @@
+<section class="tray picked">
+    <div class="tray-title">
+        <a [routerLink]="['/phim-da-thich']">Phim đã thích <i class="icon icon-right"></i></a>
+    </div>
+    <div class="tray-content">
+        <div class="tray-item" *ngFor="let item of listlikedfilm">
+            <a [routerLink]="['/phim', item.filmId, item.filmName | slug, 'tap-'+1]">
+                <img class="tray-item-thumbnail" src={{item.image}} data-src="" alt={{item.filmName}}>
+                <div class="tray-item-description">
+                    <div class="tray-item-title">{{item.filmName}}</div>
+                    <div class="tray-item-meta-info">
+                        <div class="tray-film-views">{{item.viewed | numberWithCommas}} lượt xem</div>
+                        <div class="tray-film-likes">{{item.liked | numberWithCommas}} thích</div>
+                    </div>
+                </div>
+                <div class="tray-film-update">
+                    <span *ngFor="let agenre of item.genre; let last = last;">{{agenre.genreName}} 
+                        <p *ngIf="!last" style="display: inline;">,&nbsp;</p>
+                    </span>
+                </div>
+                <!-- <div class="tray-film-update">
+                    100 phút
+                </div> -->
+                <div class="tray-item-play-button">
+                    <i class="icon-play"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

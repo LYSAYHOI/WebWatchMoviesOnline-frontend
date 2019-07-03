@@ -1,0 +1,25 @@
+<div class="player-sidebar-body body-episode" [ngClass]="{hidden: this.PlayerSidebarServiceService.toggle === false}">
+    <div class="episode-list-tool">
+        <div class="season-active hidden" id="season-active"></div>
+        <div class="season-list ps-container ps-theme-default">
+        </div>
+        <div class="episode-total">Tổng số: {{this.filmInfoService.episodeCount}} video</div>
+        <div class="episode-select">
+            Tập <input type="number" min="1" max={{this.filmInfoService.episodeCount}} name="current-episode" value={{episodeSelected}} #numberInput>
+            <div class="play-button" (click)="onPlay(numberInput.value)"><i class="icon-play"></i></div>
+        </div>
+    </div>
+    <div class="episode-list ps-container ps-theme-default">
+        <ng-container *ngFor="let item of episode; let i = index">
+            <div class="episode-item" (click)="getIdLink(item.episodeId, item.link, i+1)" [ngClass]="{'activated': episodeSelected == i+1 || filmNumber == i+1}">
+                <div class="episode-item-thumbnail"><img [src]="episodeImageThumbnail(item.link)">
+                </div>
+                <div class="episode-item-meta">
+                    <div class="episode-item-title">Tập {{ item.episodeNumber }} - {{ item.episodeName }}</div>
+                    <div class="episode-item-views"> {{ item.view | numberWithCommas}} lượt xem</div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="loading hidden"></div>
+    </div>
+</div>

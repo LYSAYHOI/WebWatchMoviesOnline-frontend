@@ -1,0 +1,15 @@
+<div class="container">
+    <app-slider-wrapper></app-slider-wrapper>
+    <app-tray-episode></app-tray-episode>
+    <app-tray-movie></app-tray-movie>
+    <!-- <app-tray-collection></app-tray-collection> -->
+    <ng-container *ngIf="(this.isLoginService.isLogin == true 
+    || this.isAuthenticated() == true)">
+        <app-tray-picked></app-tray-picked>
+    </ng-container>
+    <app-tray-ranking></app-tray-ranking>
+    <ng-container *ngIf="cookie.check('watchedfilm')">
+        <app-watchedfilm></app-watchedfilm>
+    </ng-container>
+    <!-- <app-tray-all></app-tray-all> -->
+</div>

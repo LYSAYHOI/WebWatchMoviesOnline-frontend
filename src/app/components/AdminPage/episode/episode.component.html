@@ -1,0 +1,146 @@
+<button mat-mini-fab mat-dialog-close color="primary"><i class="fa fa-times fa-2x"></i></button>
+<div mat-dialog-content>
+    <div class="w3-container" style="padding-top:22px">
+        <h2><b><i class="fa fa-cog"></i> EPISODE</b></h2>
+    </div>
+    <ng-container *ngIf="modifyEpStatus === false; else ModifyFilm">
+        <mat-card>
+            <mat-card-title>
+                ADD EPISODE
+            </mat-card-title>
+            <form class="example-form" [formGroup]="frmAddEp" (ngSubmit)="addEpisode()">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Episode Name" [(ngModel)]="episodeName" formControlName="addEpName">
+                    <mat-error *ngIf="frmAddEp.controls.addEpName.errors?.required && (frmAddEp.controls.addEpName.dirty || frmAddEp.controls.addEpName.touched)">
+                        Episode Name is required
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpName.errors?.pattern && (frmAddEp.controls.addEpName.dirty || frmAddEp.controls.addEpNamee.touched)">
+                        Film Name does not contain special characters
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpName.errors?.maxlength && (frmAddEp.controls.addEpName.dirty || frmAddEp.controls.addEpName.touched)">
+                        Film Name must be less than 50 characters
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput type="number" placeholder="Episode number" [(ngModel)]="episodeNumber" formControlName="addEpNumber">
+                    <mat-error *ngIf="frmAddEp.controls.addEpNumber.errors?.required && (frmAddEp.controls.addEpNumber.dirty || frmAddEp.controls.addEpNumber.touched)">
+                        Episode number is required
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpNumber.errors?.pattern && (frmAddEp.controls.addEpNumber.dirty || frmAddEp.controls.addEpNumber.touched)">
+                        Episode number does not contain special characters
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpNumber.errors?.min && (frmAddEp.controls.addEpNumber.dirty || frmAddEp.controls.addEpNumber.touched)">
+                        Episode number is invalid
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Film link" [(ngModel)]="link" formControlName="addEpLink" [readonly]="true">
+                </mat-form-field>
+                <input mat-button type="file" (change)="chooseFile($event)" [disabled]="isUploadProgressing">
+                <button mat-flat-button color="primary" type="button" (click)="uploadEpisode()" [disabled]="file==undefined || file==null || isUploadProgressing">Upload file</button>
+                <hr>
+                <ng-container *ngIf="progressBar != 0">
+                    <progress-bar [color-degraded]="{'0': '#C0392B',  '20': '#E74C3C', '40':'#EB984E', '60':'#FAD7A0', '80':'#ABEBC6', '100': '#58D68D'}" [progress]="progressBar"></progress-bar>
+                </ng-container>
+                <br>
+                <button type="submit" mat-flat-button color='primary' [disabled]="!frmAddEp.valid" class="mrr">ADD</button>
+                <button mat-flat-button color='warn' type="reset" (click)="frmAddEp.reset()">RESET</button>
+            </form>
+        </mat-card>
+    </ng-container>
+    <ng-template #ModifyFilm>
+        <mat-card>
+            <mat-card-title>
+                MODIFY EPISODE
+            </mat-card-title>
+            <form class="example-form" [formGroup]="frmAddEp" (ngSubmit)="performModify()">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Episode Name" [(ngModel)]="episodeName" formControlName="addEpName">
+                    <mat-error *ngIf="frmAddEp.controls.addEpName.errors?.required && (frmAddEp.controls.addEpName.dirty || frmAddEp.controls.addEpName.touched)">
+                        Episode Name is required
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpName.errors?.pattern && (frmAddEp.controls.addEpName.dirty || frmAddEp.controls.addEpNamee.touched)">
+                        Film Name does not contain special characters
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpName.errors?.maxlength && (frmAddEp.controls.addEpName.dirty || frmAddEp.controls.addEpName.touched)">
+                        Film Name must be less than 50 characters
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput type="number" placeholder="Episode number" [(ngModel)]="episodeNumber" formControlName="addEpNumber" readonly>
+                    <mat-error *ngIf="frmAddEp.controls.addEpNumber.errors?.required && (frmAddEp.controls.addEpNumber.dirty || frmAddEp.controls.addEpNumber.touched)">
+                        Episode number is required
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpNumber.errors?.pattern && (frmAddEp.controls.addEpNumber.dirty || frmAddEp.controls.addEpNumber.touched)">
+                        Episode number does not contain special characters
+                    </mat-error>
+                    <mat-error *ngIf="frmAddEp.controls.addEpNumber.errors?.min && (frmAddEp.controls.addEpNumber.dirty || frmAddEp.controls.addEpNumber.touched)">
+                        Episode number is invalid
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Film link" [(ngModel)]="link" formControlName="addEpLink" [readonly]="true">
+                </mat-form-field>
+                <input mat-button type="file" (change)="chooseFile($event)" [disabled]="isUploadProgressing">
+                <button mat-flat-button color="primary" type="button" (click)="uploadEpisode()" [disabled]="file==undefined || file==null || isUploadProgressing">Upload file</button>
+                <hr>
+                <ng-container *ngIf="progressBar != 0">
+                    <progress-bar [color-degraded]="{'0': '#C0392B',  '20': '#E74C3C', '40':'#EB984E', '60':'#FAD7A0', '80':'#ABEBC6', '100': '#58D68D'}" [progress]="progressBar"></progress-bar>
+                </ng-container>
+                <br>
+                <button type="submit" mat-flat-button color='primary' [disabled]="!frmAddEp.valid" class="mrr">MODIFY</button>
+                <button mat-flat-button color='warn' type="reset" (click)="frmAddEp.reset()" class="mrr">RESET</button>
+                <button mat-flat-button color='warn' (click)="episodeModifyClose()">BACK</button>
+            </form>
+        </mat-card>
+    </ng-template>
+    <hr>
+    <mat-card>
+        <mat-card-title>
+            EPISODE INFO
+        </mat-card-title>
+        <div fxLayout fxLayoutAlign="center center">
+            <mat-form-field fxFlex="100%" class="expand">
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search...">
+            </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="episodeId">
+                <th mat-header-cell *matHeaderCellDef style="text-align:left"> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.episodeId}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="episodeName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Episode Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.episodeName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="episodeNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Episode Number </th>
+                <td mat-cell *matCellDef="let element" class="resize"> {{element.episodeNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="view">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> View </th>
+                <td mat-cell *matCellDef="let element"> {{element.view}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="link" sticky stickyEnd>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Link </th>
+                <td mat-cell *matCellDef="let element"> {{element.link}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Config">
+                <th mat-header-cell *matHeaderCellDef style="text-align:center"> Update </th>
+                <td mat-cell *matCellDef="let element" style="text-align:center">
+                    <button type="button" mat-mini-fab color='primary' class="mrr" (click)="modifyEpisode(element.episodeId, element.episodeName, element.episodeNumber, element.link)"><i class="fa fa-arrow-up"></i></button>
+                    <!-- <button type="button" mat-mini-fab color='warn'><i class="fa fa-minus"></i></button> -->
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5,10,20,30,40,50,60,70,80,90,100]" [length]="length" (page)="changeData($event)">
+        </mat-paginator>
+    </mat-card>
+</div>

@@ -1,0 +1,33 @@
+<div class="film-info">
+    <h1 class="film-info-title">{{filmInfoService.filmName}} Tập {{getIdFilmService.epnumber}}</h1>
+
+    <div class="film-info-action">
+        <button mat-button class="film-info-like" (click)="likeFilm()">
+            <ng-container *ngIf="this.check == true; else deactive" >
+                <i class="icon icon-action  icon-heart"></i>
+            </ng-container>
+            <ng-template #deactive>
+                <i class="icon icon-action  icon-heart-none "></i>
+            </ng-template>
+            <span class="film-like-label">Thích</span>
+            <span class="count-box">{{filmInfoService.liked | number:'2.'}}</span>
+        </button>
+    </div>
+
+    <div class="film-info-views">
+        <span>Lượt xem: {{filmInfoService.viewed | number:'2.'}} </span>
+    </div>
+
+    <div class="film-info-genre">
+        Thể loại:
+        <ng-container *ngFor="let item of filmInfoService.genre; let last = last;">
+            <a [routerLink]="['/anime/',item.genreName | slug]">{{item.genreName}} 
+                <p *ngIf="!last" style="display: inline;">,&nbsp;</p>
+            </a>
+        </ng-container>
+    </div>
+
+    <div class="film-info-description">
+        {{filmInfoService.filmDescription}}
+    </div>
+</div>

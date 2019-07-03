@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="user-page">
+        <div class="user-page-header">
+            <div class="user-page-logo"></div>
+            <div class="user-page-title">
+                <h3>SỬA THÔNG TIN</h3>
+                Bạn vui lòng nhập đầy đủ thông tin bên dưới.
+            </div>
+        </div>
+        <div class="user-page-body">
+            <form class="form-horizontal">
+                <input type="hidden" name="_token" value="">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" minlength="6" required name="username" value="">
+                </div>
+
+                <div class="form-group">
+                    <label for="full_name">Tên hiển thị</label>
+                    <input type="text" minlength="8" required name="full_name" value="">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" required name="email" value="">
+                </div>
+
+                <div class="form-group">
+                    <label>Giới tính</label>
+                    <label class="navbar-form-radio" style="width: 80px;">
+                        <input type="radio" name="gender" value="1">
+                        <span>Nam</span>
+                    </label>
+                    <label class="navbar-form-radio" style="width: 80px;">
+                        <input type="radio" name="gender" value="0" checked>
+                        <span>Nữ</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Sinh nhật</label>
+                    <div class="form-select day">
+                        <label>Ngày</label>
+                        <input type="number" name="dob" min="1" max="31" required="" value="0">
+                    </div>
+                    <div class="form-select month">
+                        <label>Tháng</label>
+                        <input type="number" name="mob" min="1" max="12" required="" value="0">
+                    </div>
+                    <div class="form-select year">
+                        <label>Năm</label>
+                        <input type="number" name="yob" min="1970" max="2010" required="" value="0">
+                    </div>
+                    <span class="tip"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Sửa thông tin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

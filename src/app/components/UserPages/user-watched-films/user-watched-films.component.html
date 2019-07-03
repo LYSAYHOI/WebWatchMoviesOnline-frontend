@@ -1,0 +1,24 @@
+<div class="container">
+    <section class="tray">
+        <div class="tray-title">Anime Đã Xem</div>
+        <div class="tray-content">
+            <div class="user-film-item" *ngFor="let film of listFilm">
+                <a [routerLink]="['/phim', film.filmId, film.filmName | slug, 'tap-'+1]">
+                    <img class="user-film-thumbnail" src={{film.image}} data-src="" alt={{film.filmName}}>
+                </a>
+                <div class="user-film-meta">
+                    <a [routerLink]="['/phim', film.filmId, (film.filmName).replace(' ', '-'), 'Tap-'+1]">
+                        <div class="user-film-title">{{film.filmName}}</div>
+                    </a>
+                    <div class="user-film-count">
+                        {{film.viewed | numberWithCommas}} lượt xem
+                    </div>
+                    <!-- <div class="user-film-delete" data-id="6079"><i class="icon-delete"></i> xóa</div> -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="loading hidden"></div>
+        <div class="tray-more">xem thêm</div> -->
+    </section>
+    <input type="hidden" name="self-type" id="self-type" value="watched">
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="player-wrapper">
+        <iframe class="player" [src]="link() | safe" allowfullscreen="" allow="autoplay">
+        </iframe>
+    </div>
+    <div class="player-sidebar">
+        <div class="player-sidebar-header">
+            <div class="tab-item tab-episode activated" (click)="onActive()"
+                [ngClass]="{activated: this._PlayerSidebarServiceService.toggle === true}">
+                Danh sách tập
+            </div>
+            <!-- <div class="tab-item tab-ova hidden">OVA</div> -->
+            <div class="tab-item tab-information">Thông tin</div>
+            <div class="tab-item tab-comment" (click)="onActive()"
+                [ngClass]="{activated: this._PlayerSidebarServiceService.toggle === false}">
+                Bình luận
+            </div>
+        </div>
+        <app-body-episode></app-body-episode>
+        <app-body-comment></app-body-comment>
+    </div>
+    <app-film-info></app-film-info>
+</div>

@@ -1,0 +1,191 @@
+<div class="w3-container" style="padding-top:22px">
+    <h2><b><i class="fa fa-cog"></i> Film</b></h2>
+</div>
+<ng-container *ngIf="activeModifyFilm === false; else ModifyFilm">
+    <mat-card>
+        <mat-card-title>
+            ADD FILM
+        </mat-card-title>
+        <form class="example-form" [formGroup]='frmAddFilm' (ngSubmit)="filmSubmit()">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Film Name" [(ngModel)]="filmName" formControlName="addFilmName">
+                <mat-error *ngIf="frmAddFilm.controls.addFilmName.errors?.required && (frmAddFilm.controls.addFilmName.dirty || frmAddFilm.controls.addFilmName.touched)">
+                    Film Name is required
+                </mat-error>
+                <mat-error *ngIf="frmAddFilm.controls.addFilmName.errors?.minlength && (frmAddFilm.controls.addFilmName.dirty || frmAddFilm.controls.addFilmName.touched)">
+                    Film Name must be more than 4 characters
+                </mat-error>
+                <mat-error *ngIf="frmAddFilm.controls.addFilmName.errors?.pattern && (frmAddFilm.controls.addFilmName.dirty || frmAddFilm.controls.addFilmName.touched)">
+                    Film Name does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmAddFilm.controls.addFilmName.errors?.maxlength && (frmAddFilm.controls.addFilmName.dirty || frmAddGenre.controls.addFilmName.touched)">
+                    Film Name must be less than 50 characters
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Film Desciption" [(ngModel)]="filmDesciption" formControlName="addFilmDesciption"></textarea>
+                <mat-error *ngIf="frmAddFilm.controls.addFilmDesciption.errors?.required && (frmAddFilm.controls.addFilmDesciption.dirty || frmAddFilm.controls.addFilmDesciption.touched)">
+                    Film Desciption is required
+                </mat-error>
+                <mat-error *ngIf="frmAddFilm.controls.addFilmDesciption.errors?.minlength && (frmAddFilm.controls.addFilmDesciption.dirty || frmAddFilm.controls.addFilmDesciption.touched)">
+                    Film Desciption must be more than 10 characters
+                </mat-error>
+                <mat-error *ngIf="frmAddFilm.controls.addFilmDesciption.errors?.pattern && (frmAddFilm.controls.addFilmDesciption.dirty || frmAddFilm.controls.addFilmDesciption.touched)">
+                    Film Desciption does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmAddFilm.controls.addFilmDesciption.errors?.maxlength && (frmAddFilm.controls.addFilmDesciption.dirty || frmAddGenre.controls.addFilmDesciption.touched)">
+                    Film Desciption must be less than 500 characters
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Genre</mat-label>
+                <mat-select [formControl]="toppings" multiple (selectionChange)="genreSelect($event.value)" formControlName="addGenreForFilm" ngDefaultControl>
+                    <mat-option *ngFor="let topping of toppingList" [value]="topping.genreId">{{topping.genreName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="frmAddFilm.controls.addGenreForFilm.errors?.required && (frmAddFilm.controls.addGenreForFilm.dirty || frmAddFilm.controls.addGenreForFilm.touched)">
+                    Film Genre is required
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Film image link" [(ngModel)]="imageLink" formControlName="addEpLink" [readonly]="true">
+            </mat-form-field>
+            <input mat-button type="file" #fileInput (change)="chooseFile($event)" [disabled]="isUploadProgressing">
+            <button mat-flat-button color="primary" type="button" (click)="uploadImageFilm()" [disabled]="file==undefined || file==null || isUploadProgressing">Upload file</button>
+            <ng-container *ngIf="progressBar != 0">
+                <progress-bar [color-degraded]="{'0': '#C0392B',  '20': '#E74C3C', '40':'#EB984E', '60':'#FAD7A0', '80':'#ABEBC6', '100': '#58D68D'}" [progress]="progressBar"></progress-bar>
+            </ng-container>
+            <br>
+            <br>
+            <button type="submit" mat-flat-button color='primary' [disabled]="!frmAddFilm.valid" class="mrr">ADD</button>
+            <button mat-flat-button color='warn' type="reset" (click)="onReset()">RESET</button>
+        </form>
+    </mat-card>
+</ng-container>
+<ng-template #ModifyFilm>
+    <mat-card>
+        <mat-card-title>
+            MODIFY FILM
+        </mat-card-title>
+        <form class="example-form" [formGroup]='frmModifyFilm' (ngSubmit)="filmModifySubmit()">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Film Name" [(ngModel)]="filmNameModify" formControlName="modifyFilmName">
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmName.errors?.required && (frmModifyFilm.controls.modifyFilmName.dirty || frmModifyFilm.controls.modifyFilmName.touched)">
+                    Film Name is required
+                </mat-error>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmName.errors?.pattern && (frmModifyFilm.controls.modifyFilmName.dirty || frmModifyFilm.controls.modifyFilmName.touched)">
+                    Film Name does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmName.errors?.minlength && (frmModifyFilm.controls.modifyFilmName.dirty || frmModifyFilm.controls.modifyFilmName.touched)">
+                    Film Name must be more than 4 characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmName.errors?.maxlength && (frmModifyFilm.controls.modifyFilmName.dirty || frmModifyFilm.controls.modifyFilmName.touched)">
+                    Film Name must be more than 50 characters
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <textarea matInput placeholder="Film Desciption" [(ngModel)]="filmDesciptionModify" formControlName="modifyFilmDesciption"></textarea>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmDesciption.errors?.required && (frmModifyFilm.controls.modifyFilmDesciption.dirty || frmModifyFilm.controls.modifyFilmDesciption.touched)">
+                    Film description is required
+                </mat-error>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmDesciption.errors?.pattern && (frmModifyFilm.controls.modifyFilmDesciption.dirty || frmModifyFilm.controls.modifyFilmDesciption.touched)">
+                    Film Name does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmDesciption.errors?.minlength && (frmModifyFilm.controls.modifyFilmDesciption.dirty || frmModifyFilm.controls.modifyFilmDesciption.touched)">
+                    Film Name must be more than 10 characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyFilmDesciption.errors?.maxlength && (frmModifyFilm.controls.modifyFilmDesciption.dirty || frmModifyFilm.controls.modifyFilmDesciption.touched)">
+                    Film Name must be more than 500 characters
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Genre</mat-label>
+                <mat-select [formControl]="toppings" multiple [(ngModel)]="toppingList1" [compareWith]="compareObjects" (selectionChange)="genreModifySelect($event.value)" formControlName="modifyGenreForFilm" ngDefaultControl>
+                    <mat-option *ngFor="let item of toppingList" [value]="item">{{item.genreName}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="frmModifyFilm.controls.modifyGenreForFilm.errors?.required && (frmModifyFilm.controls.modifyGenreForFilm.dirty || frmModifyFilm.controls.modifyGenreForFilm.touched)">
+                    Film Name is required
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Film image link" [(ngModel)]="imageLinkModify" formControlName="addEpLinkModify" [readonly]="true">
+            </mat-form-field>
+            <input mat-button type="file" #fileInput (change)="chooseFile($event)" [disabled]="isUploadProgressing">
+            <button mat-flat-button color="primary" type="button" (click)="uploadImageFilmModify()" [disabled]="file==undefined || file==null || isUploadProgressing">Upload file</button>
+            <ng-container *ngIf="progressBarModify != 0">
+                <progress-bar [color-degraded]="{'0': '#C0392B',  '20': '#E74C3C', '40':'#EB984E', '60':'#FAD7A0', '80':'#ABEBC6', '100': '#58D68D'}" [progress]="progressBarModify"></progress-bar>
+            </ng-container>
+            <hr>
+            <button mat-flat-button color='primary' class="mrr" [disabled]="!frmModifyFilm.valid">UPDATE</button>
+            <button mat-flat-button color='warn' (click)="filmModifyClose(false)">BACK</button>
+        </form>
+    </mat-card>
+</ng-template>
+<hr>
+<mat-card>
+    <mat-card-title>
+        FILM INFO
+    </mat-card-title>
+    <div fxLayout fxLayoutAlign="center center">
+        <mat-form-field fxFlex="100%" class="expand">
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search...">
+        </mat-form-field>
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="filmId">
+            <th mat-header-cell *matHeaderCellDef style="text-align:left"> ID. </th>
+            <td mat-cell *matCellDef="let element"> {{element.filmId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="filmName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Film Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.filmName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="filmDescription">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+            <td mat-cell *matCellDef="let element" class="resize"> {{element.filmDescription}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="viewed">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Viewed </th>
+            <td mat-cell *matCellDef="let element"> {{element.viewed | numberWithCommas}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="liked">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Liked </th>
+            <td mat-cell *matCellDef="let element"> {{element.liked | numberWithCommas}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="genre" sticky stickyEnd>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Genre </th>
+            <td mat-cell *matCellDef="let element">
+                <ng-container *ngFor="let item of genreOfFilm; let i = index">
+                    {{element.genre[i]?.genreName}}
+                </ng-container>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="filmImageLink">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Image Link </th>
+            <td mat-cell *matCellDef="let element" class="resize"> {{element.image}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Config">
+            <th mat-header-cell *matHeaderCellDef style="text-align:center"> Update </th>
+            <td mat-cell *matCellDef="let element" style="text-align:center">
+                <button style="margin-right: 5%" type="button" mat-mini-fab color='accent' (click)="openEpisodeDialog(element)"><i class="fa fa-plus"></i></button>
+                <button type="button" mat-mini-fab color='primary' (click)="ActiveModifyFilm(element.filmId, element.filmName, element.filmDescription, element.genre, element.image)"><i class="fa fa-arrow-up"></i></button>
+                <!-- <button type="button" mat-mini-fab color='warn'><i class="fa fa-minus"></i></button> -->
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5,10,20,30,40,50,60,70,80,90,100]" [length]="length" (page)="changeData($event)">
+    </mat-paginator>
+</mat-card>
+<hr>

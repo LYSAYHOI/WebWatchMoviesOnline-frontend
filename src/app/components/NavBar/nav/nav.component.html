@@ -1,0 +1,37 @@
+<header>
+    <nav class="navbar" style="">
+        <div class="navbar-container">
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    <a class="logo" [routerLink]="['/']">
+                        <img src="../assets/images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="navbar-menu-toggle" (click)="onClickMenuToggle()">
+                    <i class="icon-menu"></i>
+                </div>
+                <div class="navbar-header-user">
+                    <div class="user-login user-avatar" (click)="onClickUserLogin()">
+                        <i class="icon-person"></i>
+                    </div>
+                </div>
+                <app-navbar-left></app-navbar-left>
+                <app-navbar-right></app-navbar-right>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="floating-action" [ngClass]="{ activated: this._UserLogingTabService.floatingAction === true}">
+    <div class="action-item action-toggle" (click)="onActiveFloatingAction()">
+        <ng-container *ngIf="this._UserLogingTabService.floatingAction === false; else Activte">
+            <i class="icon-assistive"></i>
+        </ng-container>
+        <ng-template #Activte>
+            <i class="icon-close"></i>
+        </ng-template>
+    </div>
+    <div class="action-item action-home" (click)="backtoHome()"><i class="icon-home"></i></div>
+    <div class="action-item action-menu" (click)="onClickMenuToggle()"><i class="icon-menu"></i></div>
+    <div class="action-item action-user" (click)="onClickUserLogin()"><i class="icon-person"></i></div>
+    <div class="action-item action-top" (click)="scrollToTop()"><i class="icon-up"></i></div>
+</div>

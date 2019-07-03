@@ -1,0 +1,22 @@
+<section class="tray episode">
+    <div class="tray-title">
+        <a>Tập Mới Nhất <i class="icon icon-right"></i></a>
+    </div>
+    <div class="tray-content index">
+        <div class="tray-item" *ngFor="let ep of listNewEp">
+            <a [routerLink]="['/phim', ep.film.filmId, ep.film.filmName | slug, 'tap-'+ep.episodeNumber]">
+                <img class="tray-item-thumbnail" [src]="episodeImageThumbnail(ep.link)" data-src="" alt="ep.episodeName">
+                <div class="tray-item-description">
+                    <div class="tray-item-title">{{ep.film.filmName}}</div>
+                    <div class="tray-item-meta-info">
+                        <span class="tray-episode-name">Tap {{ep.episodeNumber}} - {{ep.episodeName}}</span>
+                        <span class="tray-episode-views">{{ep.view}} lượt xem</span>
+                    </div>
+                </div>
+                <div class="tray-item-play-button">
+                    <i class="icon-play"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

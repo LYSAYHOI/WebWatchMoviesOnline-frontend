@@ -1,0 +1,30 @@
+<div class="container">
+    <section class="tray">
+        <div class="tray-title">Anime Đã Thích</div>
+        <div class="tray-content">
+            <ng-container *ngFor="let item of listlikedfilm">
+                <div class="user-film-item">
+                    <a [routerLink]="['/phim', item.filmId, item.filmName | slug, 'tap-'+1]">
+                        <img class="user-film-thumbnail" src={{item.image}} alt={{item.filmName}}>
+                    </a>
+                    <div class="user-film-meta">
+                        <a [routerLink]="['/phim', item.filmId, (item.filmName).replace(' ', '-'), 'Tap-'+1]">
+                            <div class="user-film-title">{{ item.filmName }}</div>
+                        </a>
+                        <div class="user-film-count">
+                            {{ item.liked | numberWithCommas }} thích
+                        </div>
+                        <!-- <div class="user-film-delete" data-id="6031"><i class="icon-delete"></i> xóa</div> -->
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="loading hidden"></div>
+        <ng-container *ngIf="totalLikedFilm > 40">
+            <div class="tray-more" (click)="readMore()">xem thêm</div>
+        </ng-container>
+    </section>
+
+    <input type="hidden" name="self-type" id="self-type" value="liked">
+
+</div>

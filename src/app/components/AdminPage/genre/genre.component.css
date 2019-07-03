@@ -1,0 +1,37 @@
+.mrr {
+    margin-right: 5%;
+}
+
+table {
+    width: 100%;
+    /* overflow-x: auto; */
+    overflow-y: hidden;
+}
+
+th.mat-header-cell {
+    text-align: center;
+    max-width: 300px!important;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 100%;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.resize {
+    width: 400px;
+    max-width: 150px;
+    min-width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.expand {
+    width: 100%;
+}
