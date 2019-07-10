@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressBarModule } from "angular-progress-bar"
+import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 
 //Guard
 import { AuthenticationGuard } from './components/Guard/authentication.guard';
@@ -60,6 +61,7 @@ import { EpisodeComponent } from './components/AdminPage/episode/episode.compone
 import { UploadVideoService } from './Services/upload-video.service';
 import { WatchedfilmComponent } from './components/HomePage/watchedfilm/watchedfilm.component';
 import { UserComponent } from './components/AdminPage/user/user.component';
+import { SearchPageComponent } from './components/search-page/search-page.component';
 //import { MatDialogRef } from '@angular/material';
 
 @NgModule({
@@ -99,7 +101,8 @@ import { UserComponent } from './components/AdminPage/user/user.component';
         AlertDialogComponent,
         EpisodeComponent,
         WatchedfilmComponent,
-        UserComponent
+        UserComponent,
+        SearchPageComponent
     ],
     imports: [
         BrowserModule,
@@ -110,7 +113,8 @@ import { UserComponent } from './components/AdminPage/user/user.component';
         ToastrModule.forRoot(),
         DemoMaterialModule,
         ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
-        ProgressBarModule
+        ProgressBarModule,
+        TextareaAutosizeModule
      //   MatDialogRef
     ],
     entryComponents: [

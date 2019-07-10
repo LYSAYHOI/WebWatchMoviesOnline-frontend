@@ -8,54 +8,34 @@
             </div>
         </div>
         <div class="user-page-body">
-            <form class="form-horizontal">
-                <input type="hidden" name="_token" value="">
-                <div class="form-group">
-                    <label for="username">Tên đăng nhập</label>
-                    <input type="text" minlength="6" required name="username" value="">
-                </div>
-
+            <form [formGroup]='frmchangeInfo' class="form-horizontal" (ngSubmit)="changeInfo()">
                 <div class="form-group">
                     <label for="full_name">Tên hiển thị</label>
-                    <input type="text" minlength="8" required name="full_name" value="">
+                    <input type="text" required name="full_name" formControlName="fullname" [(ngModel)]="fullname">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" required name="email" value="">
+                    <input type="email" required name="email" formControlName="email" [(ngModel)]="email">
                 </div>
 
                 <div class="form-group">
-                    <label>Giới tính</label>
-                    <label class="navbar-form-radio" style="width: 80px;">
-                        <input type="radio" name="gender" value="1">
-                        <span>Nam</span>
-                    </label>
-                    <label class="navbar-form-radio" style="width: 80px;">
-                        <input type="radio" name="gender" value="0" checked>
-                        <span>Nữ</span>
-                    </label>
-                </div>
+                    <label>Giới tính </label>
+                    <mat-radio-group formControlName="gender" [(ngModel)]="gender">
+                      <mat-radio-button value="true" checked>Nam</mat-radio-button>
+                      <mat-radio-button value="false">Nữ</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
 
                 <div class="form-group">
-                    <label>Sinh nhật</label>
-                    <div class="form-select day">
-                        <label>Ngày</label>
-                        <input type="number" name="dob" min="1" max="31" required="" value="0">
-                    </div>
-                    <div class="form-select month">
-                        <label>Tháng</label>
-                        <input type="number" name="mob" min="1" max="12" required="" value="0">
-                    </div>
-                    <div class="form-select year">
-                        <label>Năm</label>
-                        <input type="number" name="yob" min="1970" max="2010" required="" value="0">
-                    </div>
-                    <span class="tip"></span>
+                    <label>Ngày sinh</label>
+                    <input matInput [matDatepicker]="picker" readonly formControlName="birthday" [(ngModel)]="birthday">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </div>
 
-                <div class="form-group">
-                    <button type="submit">Sửa thông tin</button>
+                <div>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!frmchangeInfo.valid">Sửa thông tin</button>
                 </div>
             </form>
         </div>

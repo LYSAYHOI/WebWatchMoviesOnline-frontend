@@ -14,6 +14,7 @@ export class FilmInfoService {
     public genre: any;
     
     private likeFilmAPI: string = "http://localhost:8080/like";
+    private filmWithGenre: string = "http://localhost:8080/film/byGenre?";
     constructor(
         private http: HttpClient
     ) { }
@@ -34,5 +35,8 @@ export class FilmInfoService {
             params: data,
             headers: new HttpHeaders().set("Authorization", token.tokenType + ' ' + token.accessToken)
         })
+    }
+    getFilmByGenre(genreId, pagesize) {
+        return this.http.get(this.filmWithGenre + "genreId=" + genreId + "&pagesize=" + pagesize);
     }
 }

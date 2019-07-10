@@ -35,13 +35,13 @@
 
         <ng-container matColumnDef="is_blocked">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> isBlocked </th>
-            <td mat-cell *matCellDef="let element"> <mat-checkbox [(ngModel)]="element.isBlocked" disabled></mat-checkbox> </td>
+            <td mat-cell *matCellDef="let element"> <mat-checkbox [(ngModel)]="element.blocked" disabled></mat-checkbox> </td>
         </ng-container>
 
         <ng-container matColumnDef="block">
             <th mat-header-cell *matHeaderCellDef style="text-align:center"> Block </th>
             <td mat-cell *matCellDef="let element" style="text-align:center">
-                <button type="button" mat-mini-fab color='warn'><i class="fa fa-minus"></i></button>
+                <button type="button" mat-mini-fab color='warn' (click)="blockUser(element.username)"><i class="fa fa-minus"></i></button>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -74,7 +74,7 @@ export class GenreComponent implements OnInit, OnDestroy, AfterViewInit {
             addGenreDesciption: ['', [
                 Validators.required,
                 Validators.minLength(10),
-                Validators.maxLength(500),
+                Validators.maxLength(255),
                 Validators.pattern(genrepattern)
             ]]
         })
@@ -92,25 +92,35 @@ export class GenreComponent implements OnInit, OnDestroy, AfterViewInit {
             modifyGenreDesciption: ['', [
                 Validators.required,
                 Validators.minLength(10),
-                Validators.maxLength(500),
+                Validators.maxLength(255),
                 Validators.pattern(genrepattern)
             ]]
         })
     }
 
     onAddGenreSubmit() {
-        console.log(this.frmAddGenre);
         if (this.frmAddGenre.valid) {
             let data = {
                 genreName: this.genreName,
                 genreDescription: this.genreDesciption
             }
             this.subscription = this.addGenreApiService.add(data).subscribe((response) => {
+                console.log(response);
+                if(response["result"].search("success")){
+                    this.showSuccess();
+                } else {
+                    this.toastrService.error('', 'Thêm thất bại', {
+                        timeOut: 1000,
+                        positionClass: 'toast-top-right'
+                    });
+                }
                 this.getAllGenre();
-                this.showSuccess();
                 this.frmAddGenre.reset();
             }, (error) => {
-                console.log(error);
+                this.toastrService.error('', 'Thêm thất bại', {
+                    timeOut: 1000,
+                    positionClass: 'toast-top-right'
+                });
             })
         }
     }

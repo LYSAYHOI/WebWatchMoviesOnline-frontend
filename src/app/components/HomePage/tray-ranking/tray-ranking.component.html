@@ -1,211 +1,24 @@
 <section class="tray ranking">
     <div class="tray-title">
-        <a href="">Bảng Xếp Hạng <i class="icon icon-right"></i></a>
+        <a [routerLink]="['/bang-xep-hang']">Bảng Xếp Hạng <i class="icon icon-right"></i></a>
     </div>
     <div class="tray-content">
         <div class="ranking-item" *ngFor="let film of rankingFilmList; let i = index">
-            <a href="">
+            <a [routerLink]="['/phim', film.filmId, film.filmName | slug, 'tap-'+1]">
                 <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_1.jpg" data-src="" alt="Vua Hải Tặc">
+                    <img src={{film.image}} data-src="" alt={{film.filmName}}>
                 </div>
-                <div class="ranking-item-top">{{i}}</div>
+                <div class="ranking-item-top">{{i + 1}}</div>
             </a>
             <div class="ranking-item-meta">
-                <a href="">
+                <a [routerLink]="['/phim', film.filmId, film.filmName | slug, 'tap-'+1]">
                     <div class="ranking-item-title">{{film.filmName}}</div>
                 </a>
-                <span class="ranking-item-views">{{film.viewed}} lượt xem</span>
-                <div class="ranking-item-update">
+                <span class="ranking-item-views">{{film.viewed | numberWithCommas}} lượt xem</span>
+                <!-- <div class="ranking-item-update">
                     817 / 6969 tập
-                </div>
+                </div> -->
             </div>
         </div>
-        <!-- <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_2.jpg" data-src="" alt="Hội Pháp Sư">
-                </div>
-                <div class="ranking-item-top">2</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Hội Pháp Sư</div>
-                </a>
-                <span class="ranking-item-views">28,055,174 lượt xem</span>
-                <div class="ranking-item-update">
-                    299 / 969 tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_3.jpg" data-src="" alt="Super Dragon Ball Heroes: Universe Mission">
-                </div>
-                <div class="ranking-item-top">3</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Super Dragon Ball Heroes: Universe Mission</div>
-                </a>
-                <span class="ranking-item-views">1,642,808 lượt xem</span>
-                <div class="ranking-item-update">
-                    9 / ??? tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_4.jpg" data-src="" alt="Sword Art Online: Alicization">
-                </div>
-                <div class="ranking-item-top">4</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Sword Art Online: Alicization</div>
-                </a>
-                <span class="ranking-item-views">1,680,393 lượt xem</span>
-                <div class="ranking-item-update">
-                    21 / ??? tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_5.jpg" data-src="" alt="Boruto: Naruto Next Generations">
-                </div>
-                <div class="ranking-item-top">5</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Boruto: Naruto Next Generations</div>
-                </a>
-                <span class="ranking-item-views">24,962,441 lượt xem</span>
-                <div class="ranking-item-update">
-                    96 / 999 tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_7.jpg" data-src="" alt="Date A Live III">
-                </div>
-                <div class="ranking-item-top">6</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Date A Live III</div>
-                </a>
-                <span class="ranking-item-views">299,614 lượt xem</span>
-                <div class="ranking-item-update">
-                    9 / 12 tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_4.jpg" data-src="" alt="Domestic na Kanojo">
-                </div>
-                <div class="ranking-item-top">7</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Domestic na Kanojo</div>
-                </a>
-                <span class="ranking-item-views">206,286 lượt xem</span>
-                <div class="ranking-item-update">
-                    9 / ??? tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_1.jpg" data-src="" alt="Tate no Yuusha no Nariagari">
-                </div>
-                <div class="ranking-item-top">8</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Tate no Yuusha no Nariagari</div>
-                </a>
-                <span class="ranking-item-views">881,134 lượt xem</span>
-                <div class="ranking-item-update">
-                    9 / 25 tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_3.jpg" data-src="" alt="Tensei shitara Slime Datta Ken">
-                </div>
-                <div class="ranking-item-top">9</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Tensei shitara Slime Datta Ken</div>
-                </a>
-                <span class="ranking-item-views">2,293,099 lượt xem</span>
-                <div class="ranking-item-update">
-                    22 / 24 tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_2.jpg" data-src="" alt="Dororo">
-                </div>
-                <div class="ranking-item-top">10</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Dororo</div>
-                </a>
-                <span class="ranking-item-views">884,136 lượt xem</span>
-                <div class="ranking-item-update">
-                    9 / ??? tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_7.jpg" data-src="" alt="Yakusoku no Neverland">
-                </div>
-                <div class="ranking-item-top">11</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">Yakusoku no Neverland</div>
-                </a>
-                <span class="ranking-item-views">334,482 lượt xem</span>
-                <div class="ranking-item-update">
-                    9 / 12 tập
-                </div>
-            </div>
-        </div>
-        <div class="ranking-item">
-            <a href="">
-                <div class="ranking-item-thumbnail">
-                    <img src="../assets/images/rank_1.jpg" data-src="" alt="One Punch Man">
-                </div>
-                <div class="ranking-item-top">12</div>
-            </a>
-            <div class="ranking-item-meta">
-                <a href="">
-                    <div class="ranking-item-title">One Punch Man</div>
-                </a>
-                <span class="ranking-item-views">3,263,819 lượt xem</span>
-                <div class="ranking-item-update">
-                    12 / 999 tập
-                </div>
-            </div>
-        </div> -->
     </div>
 </section>

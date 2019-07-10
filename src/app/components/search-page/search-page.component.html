@@ -1,0 +1,20 @@
+<div class="container">
+    <section class="tray">
+        <div class="tray-title">Kết quả tìm kiếm: {{ keyword }}</div>
+        <div class="tray-item" *ngFor="let item of listFilm">
+            <a [routerLink]="['/phim', item.filmId, item.filmName | slug, 'tap-'+1]">
+                <img class="tray-item-thumbnail" [src]="item.image" [alt]="item.filmName">
+                <div class="tray-item-description">
+                    <div class="tray-item-title">{{ item.filmName }}</div>
+                    <div class="tray-item-meta-info">
+                        <div class="tray-film-views"> {{ item.viewed | numberWithCommas }} lượt xem</div>
+                        <div class="tray-film-likes"> {{ item.liked | numberWithCommas }} thích</div>
+                    </div>
+                </div>
+                <div class="tray-item-play-button">
+                    <i class="icon-play"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+</div>

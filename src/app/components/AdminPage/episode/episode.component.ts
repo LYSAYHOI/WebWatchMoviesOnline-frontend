@@ -59,11 +59,11 @@ export class EpisodeComponent implements OnInit, OnDestroy {
     }
 
     createAddFilmForm() {
-        var filmpattern = /^[^`~!@#$%^&*()_+={}\[\]|\\:;“’<>?๐฿]*$/;
+        var filmpattern = /^[^`~!@#$%^&*()_+={}\[\]|\\;“’<>?๐฿]*$/;
         this.frmAddEp = this.formBuilder.group({
             addEpName: ['', [
                 Validators.required,
-                Validators.maxLength(50),
+                Validators.maxLength(500),
                 Validators.pattern(filmpattern)
             ]],
             addEpNumber: ['', [
@@ -144,32 +144,37 @@ export class EpisodeComponent implements OnInit, OnDestroy {
         let uploadFile = file;
         //this.subscription.unsubscribe();
         let upload = new tus.Upload(uploadFile, {
+            resume: false,
+            retryDelays: [0, 1000, 3000, 5000],
+            chunkSize: 30000000,
             endpoint: uploadUrl,
             metadata: {
                 token: uploadToken,
                 name: uploadFile.name
             },
             onError: (error)=> {
-                this.dialog.openDialog("Error", error);
+                this.dialog.openDialog("onError", error);
                 this.isUploadProgressing = false;
             },
             onSuccess: () => {
                 let fingerprint = (upload.url).split("/")[4];
-                this.dialog.openDialog("Success", "Upload success "+ fingerprint);
-                this.subscription = this.uploadVideoService.getVideoId(fingerprint).subscribe((response)=>{
-                    if(response['code'] == 200 && response['success'] == true) {
-                        this.link = response['data'];
-                    }else {
-                        this.dialog.openDialog("error", response['data']);
-                    }
-                    this.isUploadProgressing = false;
-                    if(this.progressBar == 100) {
-                        this.progressBar = 0;
-                    }
-                }, (error) => {
-                    this.dialog.openDialog("error", error);
-                    this.isUploadProgressing = false;
-                })
+                setTimeout(() => {
+                    this.subscription = this.uploadVideoService.getVideoId(fingerprint).subscribe((response)=>{
+                        if(response['code'] == 200 && response['success'] == true) {
+                            this.link = response['data'];
+                        }else {
+                            this.dialog.openDialog("error", response['data']);
+                        }
+                        this.isUploadProgressing = false;
+                        if(this.progressBar == 100) {
+                            this.progressBar = 0;
+                        }
+                    }, (error) => {
+                        console.log(error);
+                        this.dialog.openDialog("error", error);
+                        this.isUploadProgressing = false;
+                    })
+                }, 5000);
             },
             onProgress: (bytesUploaded, bytesTotal)=>{
                 this.progressBar = parseFloat((bytesUploaded / bytesTotal * 100).toFixed(2));

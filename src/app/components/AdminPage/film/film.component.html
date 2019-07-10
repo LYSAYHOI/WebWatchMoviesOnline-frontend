@@ -23,7 +23,7 @@
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width">
-                <textarea matInput placeholder="Film Desciption" [(ngModel)]="filmDesciption" formControlName="addFilmDesciption"></textarea>
+                <textarea matInput autosize placeholder="Film Desciption" [(ngModel)]="filmDesciption" formControlName="addFilmDesciption"></textarea>
                 <mat-error *ngIf="frmAddFilm.controls.addFilmDesciption.errors?.required && (frmAddFilm.controls.addFilmDesciption.dirty || frmAddFilm.controls.addFilmDesciption.touched)">
                     Film Desciption is required
                 </mat-error>
@@ -85,7 +85,7 @@
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
-                <textarea matInput placeholder="Film Desciption" [(ngModel)]="filmDesciptionModify" formControlName="modifyFilmDesciption"></textarea>
+                <textarea matInput autosize placeholder="Film Desciption" [(ngModel)]="filmDesciptionModify" formControlName="modifyFilmDesciption"></textarea>
                 <mat-error *ngIf="frmModifyFilm.controls.modifyFilmDesciption.errors?.required && (frmModifyFilm.controls.modifyFilmDesciption.dirty || frmModifyFilm.controls.modifyFilmDesciption.touched)">
                     Film description is required
                 </mat-error>

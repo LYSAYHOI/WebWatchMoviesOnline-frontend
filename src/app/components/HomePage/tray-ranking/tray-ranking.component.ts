@@ -21,7 +21,7 @@ export class TrayRankingComponent implements OnInit {
 
     getRanking() {
         let data = {
-            pagesize: 10
+            pagesize: 12
         }
         this.collectionService.getRanking(data).subscribe(
             response => {

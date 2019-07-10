@@ -10,37 +10,38 @@
         <form [formGroup]='frmAddGenre' class="example-form" (ngSubmit)="onAddGenreSubmit()">
             <mat-form-field class="example-full-width">
                 <input matInput placeholder="Genre Name" [(ngModel)]="genreName" formControlName="addGenreName">
+                <mat-error *ngIf="frmAddGenre.controls.addGenreName.errors?.required && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
+                    Genre Name is required
+                </mat-error>
+                <mat-error *ngIf="frmAddGenre.controls.addGenreName.errors?.minlength && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
+                    Genre Name must be more than 4 characters
+                </mat-error>
+                <mat-error *ngIf="frmAddGenre.controls.addGenreName.errors?.pattern && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
+                    Genre Name does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmAddGenre.controls.addGenreName.errors?.maxlength && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
+                    Genre Name must be less than 50 characters
+                </mat-error>
             </mat-form-field>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreName.errors?.required && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
-                <p>Genre Name is required</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreName.errors?.minlength && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
-                <p>Genre Name must be more than 4 characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreName.errors?.pattern && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
-                <p>Genre Name does not contain special characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreName.errors?.maxlength && (frmAddGenre.controls.addGenreName.dirty || frmAddGenre.controls.addGenreName.touched)">
-                <p>Genre Name must be less than 50 characters</p>
-            </div>
+            
             <mat-form-field class="example-full-width">
-                <textarea matInput placeholder="Genre Desciption" [(ngModel)]="genreDesciption" formControlName="addGenreDesciption"></textarea>
+                <textarea matInput autosize placeholder="Genre Desciption" [(ngModel)]="genreDesciption" formControlName="addGenreDesciption"></textarea>
+                <mat-error *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.required && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
+                    Genre Desciption is required
+                </mat-error>
+                <mat-error *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.pattern && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
+                    Genre Name does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.minlength && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
+                    Genre Desciption must be more than 10 characters
+                </mat-error>
+                <mat-error *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.maxlength && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
+                    Genre Desciption must be less than 255 characters
+                </mat-error>
             </mat-form-field>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.required && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
-                <p>Genre Desciption is required</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.pattern && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
-                <p>Genre Name does not contain special characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.minlength && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
-                <p>Genre Desciption must be more than 10 characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmAddGenre.controls.addGenreDesciption.errors?.maxlength && (frmAddGenre.controls.addGenreDesciption.dirty || frmAddGenre.controls.addGenreDesciption.touched)">
-                <p>Genre Desciption must be less than 500 characters</p>
-            </div>
             <button type="submit" mat-flat-button color='primary' class="mrr" [disabled]="frmAddGenre.invalid">ADD</button>
 
-            <button mat-flat-button color='warn' (click)="onResetAddGenreForm()">RESET</button>
+            <button mat-flat-button color='warn' (click)="onResetAddGenreForm()" type="reset">RESET</button>
         </form>
     </mat-card>
 </ng-container>
@@ -52,34 +53,36 @@
         <form [formGroup]='frmModifyGenre' class="example-form" (ngSubmit)="onModifyGenreSubmit()">
             <mat-form-field class="example-full-width">
                 <input matInput placeholder="Genre Name" [(ngModel)]="genreNameModify" formControlName="modifyGenreName">
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.required && frmModifyGenre.controls.modifyGenreName.dirty">
+                    Genre Name is required
+                </mat-error>
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.minlength">
+                    Genre Name must be more than 4 characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.pattern">
+                    Genre Name does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.maxlength">
+                    Genre Name must be less than 50 characters
+                </mat-error>
             </mat-form-field>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.required && frmModifyGenre.controls.modifyGenreName.dirty">
-                <p>Genre Name is required</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.minlength">
-                <p>Genre Name must be more than 4 characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.pattern">
-                <p>Genre Name does not contain special characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreName.errors?.maxlength">
-                <p>Genre Name must be less than 50 characters</p>
-            </div>
+            
             <mat-form-field class="example-full-width">
                 <textarea matInput placeholder="Genre Desciption" [(ngModel)]="genreDesciptionModify" formControlName="modifyGenreDesciption"></textarea>
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.required && frmModifyGenre.controls.modifyGenreDesciption.dirty">
+                    Genre Name is required
+                </mat-error>
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.minlength">
+                    Genre Name must be more than 4 characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.pattern">
+                    Genre Name does not contain special characters
+                </mat-error>
+                <mat-error *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.maxlength">
+                    Genre Name must be less than 255 characters
+                </mat-error>
             </mat-form-field>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.required && frmModifyGenre.controls.modifyGenreDesciption.dirty">
-                <p>Genre Name is required</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.minlength">
-                <p>Genre Name must be more than 4 characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.pattern">
-                <p>Genre Name does not contain special characters</p>
-            </div>
-            <div class="w3-panel w3-red w3-round-large" *ngIf="frmModifyGenre.controls.modifyGenreDesciption.errors?.maxlength">
-                <p>Genre Name must be less than 50 characters</p>
-            </div>
+            
             <button type="submit" mat-flat-button color='primary' class="mrr" [disabled]="frmModifyGenre.invalid">UPDATE</button>
             <button type="button" mat-flat-button color='warn' (click)="DeActiveModify()">BACK</button>
         </form>

@@ -10,6 +10,7 @@ export class CollectionApiServiceService {
     private getNewEpAPI : string = "http://localhost:8080/newepisode";
     private getAllLikedAPI: string = "http://localhost:8080/likedFilm";
     private getRankingdAPI: string = "http://localhost:8080/ranking";
+    private getSearchdAPI: string = "http://localhost:8080/search";
 
     constructor(
         private http : HttpClient
@@ -34,6 +35,12 @@ export class CollectionApiServiceService {
     getRanking(data) {
         return this.http.get(this.getRankingdAPI, {
             params: data
-        })
+        });
+    }
+
+    getSearch(data) {
+        return this.http.get(this.getSearchdAPI, {
+            params: data
+        });
     }
 }

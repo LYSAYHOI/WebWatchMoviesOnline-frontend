@@ -1,7 +1,7 @@
-<div class="navbar-left" [ngClass]="{activated: this._MenuToggle.menuToggle === true}" >
+<div class="navbar-left" [ngClass]="{activated: this._MenuToggle.menuToggle === true}">
     <div class="navbar-search">
         <div class="search-box">
-            <input type="text" name="search-box" placeholder="Tìm kiếm anime">
+            <input type="text" name="search-box" placeholder="Tìm kiếm anime" [(ngModel)]="keyword" (keyup.enter)="search($event)">
             <i class="icon icon-search"></i>
         </div>
         <div class="search-result" id="search-result">
@@ -18,14 +18,16 @@
         </div>
     </div>
     <div class="navbar-menu">
-        <a class="navbar-menu-item" [routerLink]="['/anime']" ><i class="icon icon-film"></i> Anime </a>
+        <a class="navbar-menu-item" [routerLink]="['/theloai',firstGenre]"><i class="icon icon-film"></i> Anime </a>
         <!-- <a class="navbar-menu-item" href="" target="_blank"><i class="icon icon-news"></i> Tin Tức</a>
         <a class="navbar-menu-item" href="" target="_blank"><i class="icon icon-camera"></i> Video </a> -->
-        <a class="navbar-menu-item" [routerLink]="['/phim']" ><i class="icon icon-star"></i> Phim </a>
-        <a class="navbar-menu-item" [routerLink]="['/bang-xep-hang']" ><i class="icon icon-chart"></i> BXH </a>
+        <!-- <a class="navbar-menu-item" [routerLink]="['/phim']" ><i class="icon icon-star"></i> Phim </a> -->
+        <a class="navbar-menu-item" [routerLink]="['/bang-xep-hang']"><i class="icon icon-chart"></i> BXH </a>
     </div>
     <div class="navbar-close">
         <i class="icon-close" (click)="CloseNavbarToggle()"></i>
     </div>
-    <div class="navbar-brand"><a class="logo" [routerLink]="['']"><img src="../assets/images/logo.png" alt="VuiGhe.Net"></a></div>
+    <div class="navbar-brand">
+        <a class="logo" [routerLink]="['']"><img src="../assets/images/logo.png" alt="VuiGhe.Net"></a>
+    </div>
 </div>

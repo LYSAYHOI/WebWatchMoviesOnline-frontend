@@ -119,18 +119,21 @@ export class FilmComponent implements OnInit, OnDestroy, AfterViewInit {
                 Validators.maxLength(5000),
                 Validators.pattern(filmpattern)
             ]],
-            addGenreForFilm: ['', Validators.required],
-            addEpLink: ['', Validators.required]
+            addGenreForFilm: ['', []],
+            addEpLink: ['', []]
         })
     }
 
     getAllFilm() {
         this.subscription = this.filmAdminApiService.GetAllFilm(this.pageIndex, this.pageSize).subscribe((response) => {
-            this.dataSource.data = response['film'] as AllFilmInfo[];
-            this.genreOfFilm = response['film'];
-            this.length = response['length'];
+            if(response['result'] == null || response['result'] == undefined){
+                this.dataSource.data = response['film'] as AllFilmInfo[];
+                this.genreOfFilm = response['film'];
+                this.length = response['length'];
+            }else this.errorDialog.openDialog("error",  response['result']);
         }, (error) => {
-            this.errorDialog.openDialog("error", error.message);
+            console.log(error)
+            //this.errorDialog.openDialog("error", error);
         })
     }
 
@@ -168,6 +171,7 @@ export class FilmComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.showSuccess();
                 this.getAllFilm();
                 this.frmAddFilm.reset();
+                this.isUploadProgressing = false;
             }, (error) => {
                 this.errorDialog.openDialog("error", error.message);
             })
@@ -201,6 +205,7 @@ export class FilmComponent implements OnInit, OnDestroy, AfterViewInit {
             this.subscription = this.filmAdminApiService.ModifyFilm(data).subscribe((response) => {
                 this.showModifySuccess();
                 this.getAllFilm();
+                this.isUploadProgressing = false;
             }, (error) => {
                 this.errorDialog.openDialog("error", error.error.result);
             })

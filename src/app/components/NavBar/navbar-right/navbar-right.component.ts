@@ -39,6 +39,7 @@ export class NavbarRightComponent implements OnInit, OnDestroy {
     private yobSignUp: number;
     private errorSignup: boolean;
     private getradio: boolean = true;
+    private userDisplayName: string;
 
     constructor(
         private _UserLogingTabService: NavbarServiceService,
@@ -54,6 +55,8 @@ export class NavbarRightComponent implements OnInit, OnDestroy {
     jwtHelper = new JwtHelperService();
 
     ngOnInit() {
+        const tokenPayload = decode(localStorage.getItem('token'));
+        this.userDisplayName = tokenPayload.jti;
     }
 
     ngOnDestroy() {
@@ -117,6 +120,7 @@ export class NavbarRightComponent implements OnInit, OnDestroy {
             const tokenPayload = decode(localStorage.getItem('token'));
             if (this.isAuthenticated() == true && 
             (tokenPayload.aud == "MEMBER, ADMIN" || tokenPayload.aud == "ADMIN, MEMBER")) {
+                this.userDisplayName = tokenPayload.jti;
                 this.router.navigate(['admin']);
             }
             if (this.authServiceService.isAuthenticated()) {
@@ -261,6 +265,4 @@ export class NavbarRightComponent implements OnInit, OnDestroy {
     testkey(event){
         console.log(event);
     }
-
-
 }

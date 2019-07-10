@@ -1,9 +1,6 @@
 <div class="navbar-right" [ngClass]="{ activated: this._UserLogingTabService.status === true }">
     <ng-container *ngIf="this.authServiceService.isAuthenticated() === false; else active">
         <div class="navbar-user navbar-user-header">
-            <div class="user-avatar big-avatar">
-                <i class="icon-person"></i>
-            </div>
             <div class="navbar-user-welcome">
                 <span>Chào khách!</span>
             </div>
@@ -22,7 +19,6 @@
                 <label>Tên đăng nhập</label>
                 <input type="text" name="username" [(ngModel)]="userName" required minlength="6" (ngModelChange)="onInputUserChange($event)" (keyup.enter)="onSubmit(userName, passWord)" />
                 <i class="icon icon-person"></i>
-                <span class="tip">từ 6 - 20 kí tự</span>
             </div>
             <div class="navbar-form-group" [ngClass]="{ warning: isvalidPassword === false }">
                 <label>Mật khẩu</label>
@@ -132,17 +128,11 @@
     </ng-container>
     <ng-template #active>
         <div class="navbar-user navbar-user-header">
-            <div class="user-avatar big-avatar">
-                <img src="https://lh3.googleusercontent.com/-EencxfmC-J4/AAAAAAAAAAI/AAAAAAAADi4/feYl1axzTGw/photo.jpg?sz=130" />
-                <div class="user-avatar-update"><i class="icon-images"></i></div>
-                <input class="user-avatar-file" id="avatar-upload" type="file" name="avatar_file" accept="image/*">
-            </div>
             <div class="navbar-user-welcome">
-                <span>Chào Tuấn Anh Phạm!</span>
+                <span>Chào {{ userDisplayName }}</span>
             </div>
             <div class="navbar-user-tab">
                 <div class="navbar-user-tab-item navbar-tab-information activated" data-tab="information">Thông tin</div>
-                <div class="navbar-user-tab-item navbar-tab-notification" data-tab="notification">Thông báo</div>
             </div>
         </div>
         <div class="navbar-user-body tab-information">

@@ -16,10 +16,10 @@ import { PlayerFilmComponent } from './components/PlayerFilmPage/player-film/pla
 import { AdminComponent } from './components/AdminPage/admin/admin.component';
 import { GenreComponent } from './components/AdminPage/genre/genre.component';
 import { FilmComponent } from './components/AdminPage/film/film.component';
-import { from } from 'rxjs';
 import { RoleGuardService } from './Services/role-guard.service'
 import { DashBoardComponent } from './components/AdminPage/dash-board/dash-board.component';
 import { UserComponent } from './components/AdminPage/user/user.component';
+import { SearchPageComponent } from './components/search-page/search-page.component';
 
 const routes: Routes = [
     {
@@ -27,74 +27,12 @@ const routes: Routes = [
         component: HomeComponent
     },
     {
-        path: 'anime',
-        component: AnimeComponent,
-        children: [
-            {
-                path: 'hanh-dong',
-                component: AnimeComponent
-            },
-            {
-                path: 'khoa-hoc-vien-tuong',
-                component: AnimeComponent
-            },
-            {
-                path: 'lang-man',
-                component: AnimeComponent
-            },
-            {
-                path: 'kinh-di',
-                component: AnimeComponent
-            },
-            {
-                path: 'vo-thuat',
-                component: AnimeComponent
-            },
-            {
-                path: 'hai-huoc',
-                component: AnimeComponent
-            },
-            {
-                path: 'truong-hoc',
-                component: AnimeComponent
-            },
-            {
-                path: 'trinh-tham',
-                component: AnimeComponent
-            },
-            {
-                path: 'phieu-luu',
-                component: AnimeComponent
-            },
-            {
-                path: 'sieu-nhien',
-                component: AnimeComponent
-            },
-            {
-                path: 'doi-thuong',
-                component: AnimeComponent
-            },
-            {
-                path: 'gia-tuong',
-                component: AnimeComponent
-            },
-            {
-                path: 'robot',
-                component: AnimeComponent
-            },
-            {
-                path: 'game',
-                component: AnimeComponent
-            },
-            {
-                path: 'the-thao',
-                component: AnimeComponent
-            },
-            {
-                path: 'kich-tinh',
-                component: AnimeComponent
-            }
-        ]
+        path: 'theloai/:genreName',
+        component: AnimeComponent
+    },
+    {
+        path: 'search/:keyword',
+        component: SearchPageComponent
     },
     {
         path: 'sua-thong-tin',
